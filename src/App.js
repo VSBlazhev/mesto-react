@@ -39,7 +39,7 @@ function App() {
 
   return (
     <>
-    <div className="page">
+    
     <div className="page__container">
     <Header/>
     <Main
@@ -169,7 +169,7 @@ onClose={closeAllPoups}
 />
 
     </div>
-  </div>
+  
   </>
   );
 }
