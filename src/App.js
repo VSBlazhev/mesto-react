@@ -9,6 +9,9 @@ import ImagePopup from './components/ImagePopup.js';
 
 function App() {
 
+  React.useEffect(()=>{document.body.classList.add('page')},[])
+
+
   const [isEditProfilePopupOpen, setEditProfileOpen]= React.useState(false)
   const [isAddPlacePopupOpen, setAddPlaceOpen]= React.useState(false)
   const [isEditAvatarPopupOpen, setEditAvatarOpen]= React.useState(false)
