@@ -25,13 +25,13 @@ export class Api {
         .then(this._checkResponse)
     }
 
-    patchUserInfo({name, info}){
+    patchUserInfo({name, description}){
         return fetch(`${this.baseUrl}/users/me`, {
             method: 'PATCH',
             headers: this.headers,
          body: JSON.stringify({
             name: name,
-            about: info
+            about: description
           })
         })
          .then(this._checkResponse)
