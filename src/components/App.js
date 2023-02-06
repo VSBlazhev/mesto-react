@@ -13,13 +13,14 @@ import AddPlacePopup from "./AddPlacePopup.js";
 function App() {
   React.useEffect(() => {
     document.body.classList.add("page");
-    api.getUserId().then((data) => {
-      setCurrentUser(data);
-    });
+    api.getUserId()
+    .then((data) => {
+      setCurrentUser(data)})
+    .catch((err)=>{console.log(err)})
 
     api.getInitialCards().then((data) => {
-      setCards(data);
-    });
+      setCards(data)})
+    .catch((err)=>{console.log(err)});
   }, []);
 
   const [currentUser, setCurrentUser] = React.useState({});
@@ -56,17 +57,20 @@ function App() {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
     if (!isLiked) {
-      api.addLike(card._id).then((newCard) => {
+      api.addLike(card._id)
+      .then((newCard) => {
         setCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard : c))
-        );
-      });
+          state.map((c) => (c._id === card._id ? newCard : c)))
+        
+      })
+      .catch((err)=>{console.log(err)})
     } else {
-      api.deleteLike(card._id).then((newCard) => {
+      api.deleteLike(card._id)
+      .then((newCard) => {
         setCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard : c))
-        );
-      });
+          state.map((c) => (c._id === card._id ? newCard : c)))
+      })
+      .catch((err)=>{console.log(err)})
     }
   }
 
@@ -79,9 +83,11 @@ function App() {
           name: data.name,
           about: data.about,
           avatar: data.avatar,
-        })
-      );
-    closeAllPoups();
+        }))
+      
+    .finally(closeAllPoups())
+    .catch((err)=>{console.log(err)});
+    
   }
 
   function handleUpdateAvatar(input) {
@@ -92,30 +98,25 @@ function App() {
           name: data.name,
           about: data.about,
           avatar: data.avatar,
-        })
-      );
-    closeAllPoups();
+        }))
+    .finally(closeAllPoups())
+    .catch((err)=>{console.log(err)});
   }
 
   function handleAddCard(inputs) {
     console.log(inputs);
     api
       .addNewCard({ name: inputs.name, link: inputs.link })
-      .then((newCard) => setCards([newCard, ...cards]));
-    closeAllPoups();
+      .then((newCard) => setCards([newCard, ...cards]))
+    .finally(closeAllPoups())
+    .catch((err)=>{console.log(err)});
   }
-
-  /* function handleCardDelete(card){
-  api.deleteCard(card._id)
-  .then(((newCard)=>{
-    setCards((state)=> state.filter((c) => c._id === card._id ? newCard : c))
-  }))
-} */
 
   function handleCardDelete(card) {
     api.deleteCard(card._id).then(() => {
       setCards(cards.filter((c) => c._id != card._id));
-    });
+    })
+    .catch((err)=>{console.log(err)});
   }
 
   return (
