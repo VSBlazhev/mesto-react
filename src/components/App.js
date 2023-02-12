@@ -85,7 +85,7 @@ function App() {
           avatar: data.avatar,
         }))
       
-    .finally(closeAllPoups())
+    .then(()=>closeAllPoups())
     .catch((err)=>{console.log(err)});
     
   }
@@ -99,7 +99,7 @@ function App() {
           about: data.about,
           avatar: data.avatar,
         }))
-    .finally(closeAllPoups())
+        .then(()=>closeAllPoups())
     .catch((err)=>{console.log(err)});
   }
 
@@ -108,7 +108,7 @@ function App() {
     api
       .addNewCard({ name: inputs.name, link: inputs.link })
       .then((newCard) => setCards([newCard, ...cards]))
-    .finally(closeAllPoups())
+      .then(()=>closeAllPoups())
     .catch((err)=>{console.log(err)});
   }
 
